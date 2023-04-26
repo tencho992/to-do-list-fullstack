@@ -1,0 +1,9 @@
+body{
+  background: rgba(106, 106, 7, 0.316);
+}
+h3{
+  margin-top: 40px;
+}
+.strike{
+  text-decoration: line-through;
+}
