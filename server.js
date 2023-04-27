@@ -14,7 +14,7 @@ app.listen(3000, () => {
             throw error;
         }
         db = client.db(dbName);
-        console.log("Connected to `" + dbName + "`!");
+        console.log("Connected to `" + dbName + "`! on port 3000");
     });
 });
 
@@ -26,10 +26,14 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   db.collection('task').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('index.ejs', {messages: result})
+    const completeCount = getCount(result)
+    res.render('index.ejs', {messages: result, count: completeCount})
   })
 })
-
+function getCount(arrayResults){
+  const newArray = arrayResults.filter(item => item.completed === false)
+  return newArray.length
+}
 app.post('/messages', (req, res) => {
   console.log('1')
   db.collection('task').insertOne({ 
