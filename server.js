@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/messages', (req, res) => {
+  console.log('1')
   db.collection('task').insertOne({ 
     msg: req.body.msg, 
     completed: false
@@ -43,7 +44,7 @@ app.post('/messages', (req, res) => {
 
 
 app.put('/messages/completed', (req, res) => {
-  console.log('hi')
+  console.log('2')
   db.collection('task').findOneAndUpdate({msg: req.body.msg}, {
     
     $set: {
@@ -59,8 +60,15 @@ app.put('/messages/completed', (req, res) => {
 })
 
 app.delete('/messages', (req, res) => {
-  db.task.deleteMany({}), ((err, result) => {
-    if (err) return res.send(500, err)
-    res.send('Message deleted!')
+  console.log('3')
+  db.collection('task').deleteMany({}, (err, result) => {
+    if (err) {
+      console.error('Error deleting collection:', err);
+      res.status(500).json({ error: 'Failed to delete collection' });
+    } else {
+      console.log('Collection deleted successfully.');
+      res.json({ message: 'Collection deleted successfully!' });
+    }
   })
 })
+ 
