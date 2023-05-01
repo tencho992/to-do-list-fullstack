@@ -1,4 +1,6 @@
-![21 Savage](public/21savage.jpg)
+## To-Do List!
+FullStack application! Created using Node.js Express and MongoDB!
+Enter Tasks, when completed the database will mark as completed- reducing your count in tasks to complete. There is an option to delete your entire list. 
 
 ## Installation
 
